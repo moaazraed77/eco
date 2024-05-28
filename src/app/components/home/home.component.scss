@@ -1,0 +1,22 @@
+.frist-section {
+    height: 90vh;
+}
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    filter: brightness(0.5);
+    height: 100vh;
+}
+
+.text-space{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.card-img-top{
+    height: 250px;
+}
