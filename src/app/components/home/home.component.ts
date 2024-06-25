@@ -1,38 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { customOptions, customOptions2 } from '../../modules/owl-carasouel/owl-carasouel';
+import { RouterModule } from '@angular/router';
+import { DataService } from '../../modules/services/data.service';
+import { product } from '../../modules/interfaces/product.interface';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,CarouselModule],
+  imports: [CommonModule, CarouselModule, RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
-customOptions: any= {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 2
-      },
-      740: {
-        items: 3
-      },
-      940: {
-        items: 4
+
+export class HomeComponent implements OnInit {
+
+  customOptions: any = customOptions;
+  customOptions2: any = customOptions2;
+
+  productsBasic:product[]=[]
+  productsOccasion:product[]=[]
+
+  constructor(private dataServ:DataService){}
+
+  ngOnInit(): void {
+    this.dataServ.getDataAPI("").subscribe(data=>{
+      for (const key in data) {
+        if(data[key].department=="basic")
+        this.productsBasic.push(data[key])
       }
-    },
-    nav: true
+    })
+    this.dataServ.getDataAPI("").subscribe(data=>{
+      for (const key in data) 
+        if(data[key].department=="occasion")
+        this.productsOccasion.push(data[key])
+    })
   }
+
+
 
 }

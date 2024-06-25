@@ -1,0 +1,50 @@
+@import "../../../styles.scss";
+
+marquee {
+    color: white;
+    background-color: $bgcolor;
+    padding: 10px;
+}
+
+.card-img-top {
+    // height: 250px;
+}
+
+.products {
+    position: relative;
+}
+
+.products:hover {
+    transition: 1a;
+
+    .image-view {
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .back-image-view {
+        z-index: 1;
+        opacity: 1;
+    }
+}
+
+.image-view {
+    min-height: 200px;
+    width: 100%;
+    z-index: 2;
+}
+
+.back-image-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+}
+
+@media screen and (max-width:700px) {
+    .col-lg-4.col-md-6.col-sm-8.p-3{
+        padding: 0px !important;
+        margin-top: 10px ;
+    }
+}

@@ -1,5 +1,18 @@
+@import "../../../styles.scss";
+
+marquee {
+    color: white;
+    background-color: $bgcolor;
+    padding: 10px;
+}
+
 .frist-section {
-    height: 90vh;
+    position: relative;
+    // background-image: url("/assets/bg-image.jpg");
+    // background-size: cover;
+    padding-top: 130px;
+    margin-top: -130px;
+    z-index: 1;
 }
 
 .bg-image {
@@ -8,15 +21,215 @@
     width: 100%;
     z-index: -1;
     filter: brightness(0.5);
-    height: 100vh;
+    height: 100%;
 }
 
-.text-space{
-    height: 80vh;
+.text-space {
+    height: 75vh;
     display: flex;
     align-items: center;
 }
 
-.card-img-top{
+.text-space>div>h1 {
+    padding-top: 8vh;
+    font-size: 45px;
+}
+
+div.container {
+    overflow: hidden;
+}
+.owl-carousel .owl-item img {
+    max-height: 350px;
+}
+.owl-carousel-o div div .card-img-top {
     height: 250px;
+}
+
+.btn-primary {
+    background-color: $bgcolor !important;
+    border: none;
+    font-family: auto;
+    font-weight: 700;
+    padding: 7px 18px;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.owl-div .icons-div {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    background-color: wheat;
+    z-index: 5;
+}
+
+.owl-div:hover .icons-div {
+    display: flex;
+}
+
+.accordion {
+    border: none !important;
+    --bs-accordion-border-color: none;
+}
+
+.drop-down-list {
+    direction: rtl;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: white !important;
+    color: $bgcolor;
+}
+
+.accordion-button::after {
+    left: 10px;
+    position: absolute;
+}
+
+.accordion-button:focus,
+.accordion-button {
+    background: white !important;
+    border-color: transparent !important;
+    box-shadow: none;
+    font-weight: 700 !important;
+    font-size: 18px;
+}
+
+.accordion-button:focus,
+.accordion-button:hover {
+    color: $bgcolor;
+}
+
+.low-prices-div>img+div>h4 {
+    line-height: 33px;
+    font-family: system-ui;
+    font-size: 22px;
+    margin-top: 25px;
+}
+
+.bg-gold {
+    // background-color: var(--bgcolor);
+    background-color: $bgcolor;
+    color: white;
+    font-weight: 600;
+    padding: 45px 40px;
+}
+
+.bg-gold>p {
+    font-size: 18px;
+}
+
+.bg-gold>p:nth-of-type(2) {
+    font-family: "Cairo", Sans-serif;
+    font-size: 68px;
+    font-weight: bold;
+}
+
+.btn-light {
+    font-size: large;
+    font-weight: 700;
+    padding: 10px 25px;
+}
+.card{
+    overflow: hidden;
+}
+.owl-card .card {
+    height: 300px !important;
+    overflow: auto;
+}
+
+.card-slide {
+    height: 300px;
+    overflow-y: auto;
+}
+// .card{
+//     height: 100%;
+// }
+
+.products {
+    position: relative;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+.products:hover {
+    transition: 1a;
+
+    .image-view {
+        z-index: -1;
+        opacity: 0;
+    }
+
+    .back-image-view {
+        z-index: 1;
+        opacity: 1;
+    }
+}
+
+.image-view {
+    min-height: 200px;
+    width: 100%;
+    z-index: 2;
+}
+
+.back-image-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+}
+
+.card-body {
+    position: relative;
+    z-index: 10;
+    background-color: white;
+}
+
+@media screen and (min-width:991px) {
+    .text-space {
+        padding: 4vh;
+    }
+
+    .text-space div h4 {
+        padding: 1vh;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .text-space>div>h4 {
+        font-size: 18px;
+    }
+
+    // .card-img-top {
+    //     height: 325px;
+    // }
+}
+
+@media screen and (max-width:820px) {
+    .text-space>div>h1 {
+        padding-top: 3vh;
+    }
+
+    .frist-section {
+        height: 72vh;
+    }
+
+    .text-space {
+        height: 40vh;
+        height: fit-content;
+    }
+}
+
+@media screen and (min-width: 385px) and (max-width: 483px) {
+    .text-space>div>h1 {
+        padding-top: 2vh;
+    }
+
+    .frist-section {
+        height: 60vh;
+    }
 }

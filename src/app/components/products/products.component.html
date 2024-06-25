@@ -1,0 +1,48 @@
+
+<marquee behavior="auto" direction="right" class="d-flex">
+    <span>
+        <i class="bi bi-truck" style="margin: 5px;"></i>
+        <span style="margin-left: 50px;">تسليم خلال 72 ساعة</span>
+    </span>
+    <span>
+        <i class="bi bi-cash-coin" style="margin: 5px;"></i>
+        <span style="margin-left: 50px;"> ارجاع مجاني</span>
+    </span>
+    <span>
+        <span>100<i class="bi bi-percent" style="margin: 5px;"></i></span>
+        <span style="margin-left: 50px;">عطور اصلية 100%</span>
+    </span>
+    <span>
+        <i class="bi bi-gift-fill" style="margin: 5px;"></i>
+        <span style="margin-left: 50px;">تصفيات مستودعات لفترة محدودة</span>
+    </span>
+    <span>
+        <i class="bi bi-database-fill-add" style="margin: 5px;">الدفع عند الإستلام فى الإمارات - والكويت -
+            وعمان</i>
+    </span>
+    <span>
+        <i class="bi bi-truck" style="margin: 5px;"></i>
+    </span>
+</marquee>
+<div class="container d-flex justify-content-center flex-wrap">
+    <div class="container d-flex justify-content-center flex-wrap">
+        <div class="col-lg-4 col-md-6 col-sm-8 p-3 owl-div text-center" *ngFor="let item of products">
+            <div class="card">
+                <div class="position-relative products">
+                    <img [src]="item.productImages['0'].img" class="image-view" alt="..." >
+                    <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1" >
+                    <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1" >
+                    <div class="icons-div">
+                        <i class="bi bi-heart fs-5 m-1"></i>
+                        <i class="bi bi-search fs-5 m-1"></i>
+                        <i class="bi bi-cart3 fs-5 m-1"></i>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title fs-5">{{item.title}}</h6>
+                    <p *ngIf="item.department!='occasion'">{{item.price}} د.ك </p>
+                </div>
+            </div>
+        </div>
+</div>

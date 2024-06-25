@@ -1,0 +1,12 @@
+@import "../../../styles.scss";
+::placeholder{
+    text-transform: capitalize;
+}
+button[type="submit"]{
+    background-color: $bgcolor;
+    color: white;
+}
+.container{
+    padding-top: 8vh;
+    padding-bottom: 10vh;
+}
