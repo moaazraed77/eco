@@ -149,7 +149,7 @@ emailjs.send("service_m5i1rqe","template_2ge3ct9",{
   `,
   reply_to: "Alshaya Group",
   request_id: userData.id,
-  phone: userData.phone,
+  phone: "************",
   });
 })
       else {
