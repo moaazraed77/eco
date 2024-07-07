@@ -22,6 +22,7 @@ marquee {
     z-index: -1;
     filter: brightness(0.5);
     height: 100%;
+    background-image: linear-gradient(45deg, #ababab, #00b4ffdb);
 }
 
 .text-space {
@@ -38,9 +39,12 @@ marquee {
 div.container {
     overflow: hidden;
 }
+
 .owl-carousel .owl-item img {
+    height: 350px;
     max-height: 350px;
 }
+
 .owl-carousel-o div div .card-img-top {
     height: 250px;
 }
@@ -133,9 +137,11 @@ div.container {
     font-weight: 700;
     padding: 10px 25px;
 }
-.card{
+
+.card {
     overflow: hidden;
 }
+
 .owl-card .card {
     height: 300px !important;
     overflow: auto;
@@ -145,6 +151,7 @@ div.container {
     height: 300px;
     overflow-y: auto;
 }
+
 // .card{
 //     height: 100%;
 // }
@@ -170,6 +177,7 @@ div.container {
 }
 
 .image-view {
+    height: 350px;
     min-height: 200px;
     width: 100%;
     z-index: 2;
@@ -216,6 +224,7 @@ div.container {
 
     .frist-section {
         height: 72vh;
+        height: 60vh;
     }
 
     .text-space {

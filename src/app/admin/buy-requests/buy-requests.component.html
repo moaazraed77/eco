@@ -1,0 +1,54 @@
+<div class="col-12">
+
+  <table class="table table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of buyData; let i = index">
+        <th scope="col">{{i+1}}</th>
+        <td>{{item.userData.name}}</td>
+        <td>{{item.userData.email}}</td>
+        <td>{{item.userData.phone}}</td>
+        <td (click)="showItem=item"><i class="bi bi-eye" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">تفاصيل الشراء</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="showItem">
+        <p>Name : {{showItem.userData.name}}</p>
+        <p>Email : {{showItem.userData.email}}</p>
+        <p>Phone : {{showItem.userData.phone}}</p>
+        <p>Address : {{showItem.userData.address}}</p>
+        <div *ngFor="let item of showItem.carts">
+          <div  class="d-flex flex-wrap justufy-content-center">
+            <img [src]="temp.img" id="productImage" class="product-image" alt="" *ngFor="let temp of item.productImages">
+          </div>
+          <p>Price : {{item.price}}</p>
+          <p>Title : {{item.title}}</p>
+          <p>Details : {{item.details}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteItem(showItem.id)">delete</button>
+      </div>
+    </div>
+  </div>
+</div>

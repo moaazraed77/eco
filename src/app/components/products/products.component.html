@@ -1,5 +1,4 @@
-
-<marquee behavior="auto" direction="right" class="d-flex">
+<marquee behavior="auto" direction="right" class="d-flex" id="marquee">
     <span>
         <i class="bi bi-truck" style="margin: 5px;"></i>
         <span style="margin-left: 50px;">تسليم خلال 72 ساعة</span>
@@ -25,24 +24,35 @@
     </span>
 </marquee>
 <div class="container d-flex justify-content-center flex-wrap">
-    <div class="container d-flex justify-content-center flex-wrap">
-        <div class="col-lg-4 col-md-6 col-sm-8 p-3 owl-div text-center" *ngFor="let item of products">
+    <div class="container d-flex justify-content-center flex-wrap" *ngIf="!loading">
+        <div class="col-lg-4 col-md-6 col-sm-8 p-3 text-center"
+            *ngFor="let item of products | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index">
             <div class="card">
                 <div class="position-relative products">
-                    <img [src]="item.productImages['0'].img" class="image-view" alt="..." >
-                    <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1" >
-                    <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1" >
+                    <img [src]="item.productImages['0'].img" class="image-view" alt="..."  routerLink="/product-details/{{item.id}}">
+                    <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..."  routerLink="/product-details/{{item.id}}"
+                        *ngIf="item.productImages.length > 1">
+                    <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..."  routerLink="/product-details/{{item.id}}"
+                        *ngIf="item.productImages.length == 1">
                     <div class="icons-div">
-                        <i class="bi bi-heart fs-5 m-1"></i>
+                        <i class="bi bi-heart fs-5 m-1" (click)="setFav(item)"
+                         [ngClass]="{'text-danger':isFavourite(item),'bi-heart-fill':isFavourite(item),'bi-heart':!isFavourite(item)}"></i>
                         <i class="bi bi-search fs-5 m-1"></i>
-                        <i class="bi bi-cart3 fs-5 m-1"></i>
+                        <i class="bi bi-bag fs-5 m-1" (click)="addToCart(item)"
+                        [ngClass]="{'text-primary':isInCart(item),'bi-bag-fill':isInCart(item),'bi-bag':!isInCart(item)}"></i>
                     </div>
-
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title fs-5">{{item.title}}</h6>
-                    <p *ngIf="item.department!='occasion'">{{item.price}} د.ك </p>
+                <div class="card-body"  routerLink="/product-details/{{item.id}}">
+                    <a class="fs-6 fw-medium text-decoration-none card-title fs-5 text-info">{{item.title}}</a>
+                    <p *ngIf="item.department!='occasion'">{{item.price}} د.ا </p>
                 </div>
             </div>
         </div>
+        <div class="col-12 d-flex justify-content-center">
+            <pagination-controls (pageChange)="paginationCurrentPage=$event; scroll.scrollToAnchor('marquee')"></pagination-controls>
+        </div>
+    </div>
+    <div class="col-12">
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
 </div>

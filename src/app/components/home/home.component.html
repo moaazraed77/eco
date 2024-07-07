@@ -1,13 +1,11 @@
 <div class="col-12">
     <section class="frist-section">
-        <img src="assets/bg-image.jpg" alt="" class="bg-image">
+        <img [src]="backgrounds[0].img!" *ngIf="backgrounds[0].img" alt="" class="bg-image">
         <div class="container text-center text-light d-flex justify-content-center">
             <div class="col-sm-6 text-space">
-                <div>
-                    <h1 class="fixed-link">Alshaya Group</h1>
-                    <h4>تصفية مستودعات </h4>
-                    <h4>تعمل مجموعة الشايع على تفريغ مخازنها من البضائع وبيعها </h4>
-                    <h4>بدون هامش ربحي بهدف التصفية </h4>
+                <div class="w-100">
+                    <h1 class="fixed-link" >{{listArray[0].text}}</h1>
+                    <h4 *ngFor="let item of listArray; let i=index" [ngClass]="{'d-none':i==0}">{{item.text}}</h4>
                     <button class="btn btn-primary fs-5" owlRouterLink="products">تسوق الان</button>
                 </div>
             </div>
@@ -17,7 +15,6 @@
     <div class="col-12">
         <marquee behavior="auto" direction="right" class="d-flex">
             <span>
-                <i class="bi bi-truck" style="margin: 5px;"></i>
                 <span style="margin-left: 50px;">تسليم خلال 72 ساعة</span>
             </span>
             <span>
@@ -43,59 +40,64 @@
     </div>
 
     <div class="col-12 owl-carousel-o">
-        <div class="container">
-            <h2 class="text-center">العروض</h2>
+        <div class="container" *ngIf="!loading">
+            <h2 class="text-center title">العروض</h2>
             <owl-carousel-o [options]="customOptions">
                 <ng-template carouselSlide *ngFor="let item of productsOccasion">
                     <div class="card m-1 text-center owl-div">
                         <div class="position-relative">
                             <div class="position-relative products">
-                                <img [src]="item.productImages['0'].img" class="image-view" alt="..." >
-                                <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1" >
-                                <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1" >
+                                <img [src]="item.productImages['0'].img" class="image-view" alt="..." *ngIf="item.productImages['0'].img">
+                                <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1">
+                                <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1">
                                 <div class="icons-div">
-                                    <i class="bi bi-heart fs-5 m-1"></i>
+                                    <i class="bi bi-heart fs-5 m-1" (click)="setFav(item)" [ngClass]="{'text-danger':isFavourite(item),'bi-heart-fill':isFavourite(item),'bi-heart':!isFavourite(item)}"></i>
                                     <i class="bi bi-search fs-5 m-1"></i>
-                                    <i class="bi bi-cart3 fs-5 m-1"></i>
+                                    <i class="bi bi-bag fs-5 m-1" (click)="addToCart(item)"
+                                    [ngClass]="{'text-primary':isInCart(item),'bi-bag-fill':isInCart(item),'bi-bag':!isInCart(item)}"></i>
                                 </div>
             
                             </div>
-                            <div class="card-body">
-                                <h6 class="card-title fs-5">{{item.title}}</h6>
-                                <p *ngIf="item.department!='occasion'">{{item.price}} د.ك </p>
+                            <div class="card-body"  routerLink="/product-details/{{item.id}}">
+                                <h6 class="card-title text-info fs-5" routerLink="/product-details/{{item.id}}">{{item.title}}</h6>
+                                <p *ngIf="item.department!='occasion'">{{item.price}} د.ا </p>
                             </div>
                         </div>
                     </div>
                 </ng-template>
-
             </owl-carousel-o>
         </div>
     </div>
 
-    <h2 class="text-center">الاكثر مبيعا </h2>
-    <div class="container d-flex justify-content-center flex-wrap">
+    <h2 class="text-center title" *ngIf="!loading">الاكثر مبيعا </h2>
+    <div class="container d-flex justify-content-center flex-wrap" *ngIf="!loading">
         <div class="col-lg-4 col-md-6 col-sm-8 p-3 owl-div text-center" *ngFor="let item of productsBasic">
             <div class="card">
                 <div class="position-relative products">
-                    <img [src]="item.productImages['0'].img" class="image-view" alt="..." >
-                    <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1" >
-                    <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1" >
+                    <img [src]="item.productImages['0'].img" class="image-view" alt="..." *ngIf="item.productImages['0'].img" routerLink="/product-details/{{item.id}}" >
+                    <img [src]="item.productImages['1'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length > 1" routerLink="/product-details/{{item.id}}">
+                    <img [src]="item.productImages['0'].img" class="image-view back-image-view" alt="..." *ngIf="item.productImages.length == 1" routerLink="/product-details/{{item.id}}">
                     <div class="icons-div">
-                        <i class="bi bi-heart fs-5 m-1"></i>
+                        <i class="bi bi-heart fs-5 m-1" (click)="setFav(item)" [ngClass]="{'text-danger':isFavourite(item),'bi-heart-fill':isFavourite(item),'bi-heart':!isFavourite(item)}"></i>
                         <i class="bi bi-search fs-5 m-1"></i>
-                        <i class="bi bi-cart3 fs-5 m-1"></i>
+                        <i class="bi bi-bag fs-5 m-1" (click)="addToCart(item)"
+                        [ngClass]="{'text-primary':isInCart(item),'bi-bag-fill':isInCart(item),'bi-bag':!isInCart(item)}"></i>
                     </div>
-
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title fs-5">{{item.title}}</h6>
-                    <p *ngIf="item.department!='occasion'">{{item.price}} د.ك </p>
+                <div class="card-body" routerLink="/product-details/{{item.id}}">
+                    <h6 class="card-title fs-5 text-info">{{item.title}}</h6>
+                    <p *ngIf="item.department!='occasion'">{{item.price}}  د.ا </p>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <div class="col-12">
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+
+    
     <div class="container pt-5 drop-down-list">
         <h2 class="text-center">مزايا الخدمات</h2>
         <div class="accordion" id="accordionExample">
@@ -285,12 +287,4 @@
         </owl-carousel-o>
     </div>
 
-    <div class="text-center">
-        <h5 class="fs-4 pb-2">تواصل معنا</h5>
-        <h6 class="pb-1"> <a class="text-dark" href="https://wa.me/+971526252954" target="_blank">(971) 52 625 2954:
-                اتصل بنا</a></h6>
-        <h6 class="pb-1">أيام العمل : السبت - الخميس</h6>
-        <h6 class="pb-1"> <i class="bi bi-instagram text-danger m-1 fs-5"></i> <i
-                class="bi bi-whatsapp text-success m-1 fs-5"></i> تابعنا على</h6>
-    </div>
 </div>

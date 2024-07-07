@@ -3,62 +3,69 @@
     <!-- <div class="navbar-brand text-center d-block" routerLink="/">Logo</div> <br> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" [ngClass]="color=='light'?'navbar-toggler-icon-White':'navbar-toggler-icon-black'"></span>
+      <span class="navbar-toggler-icon"
+        [ngClass]="color=='light'?'navbar-toggler-icon-White':'navbar-toggler-icon-black'"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-12  d-flex align-items-center">
         <span class="nav-item float-start col-sm-4">
           <li class="nav-item count-div">
-            {{number}}
+            {{carts().length}}
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#" [ngClass]="color=='light'?'text-light':'text-dark'"><i
-                class="bi bi-bag"></i></a>
+            <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions3"
+            aria-controls="offcanvasWithBothOptions3" [ngClass]="color=='light'?'text-light':'text-dark'"
+            aria-current="page" [ngClass]="color=='light'?'text-light':'text-dark'"><i class="bi bi-bag"></i></a>
           </li>
-          <li class="nav-item count-div">
-            {{number}}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page" href="#"><i
-                class="bi bi-heart"></i></a>
+          <li class="nav-item text-light count-div">
+            {{favourits().length}}
           </li>
           <li class="nav-item">
+            <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2"
+              aria-controls="offcanvasWithBothOptions2" [ngClass]="color=='light'?'text-light':'text-dark'"
+              aria-current="page" href="#"><i class="bi bi-heart"></i></a>
+          </li>
+          <!-- <li class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
               style="padding: 3px 0px;" href="#"><i class="bi bi-person fs-5"></i></a>
-          </li>
+          </li> -->
         </span>
+
         <span class="col-sm-4 desktop-view">
           <div class="text-center text-light position-relative p-2 fs-4" routerLink=""
-            [ngClass]="color=='light'?'text-light':'text-dark'">Logo</div>
+            [ngClass]="color=='light'?'text-light':'text-dark'"><img src="assets/logo.jpg" class="logo" alt=""></div>
         </span>
+
         <span class="col-sm-4 mobile-view">
           <div class="text-center text-light position-relative p-2 fs-4" routerLink=""
-            [ngClass]="color=='light'?'text-light':'text-dark'" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">Logo</div>
+            [ngClass]="color=='light'?'text-light':'text-dark'" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
+            aria-label="Toggle navigation"><img src="assets/logo.jpg" class="logo" alt=""></div>
         </span>
 
         <span class="links col-sm-4 mobile-view">
           <li class="nav-item" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
               routerLink="contact">تواصل معنا</a>
           </li>
           <li class="nav-item" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
-              routerLink="products">المتجر</a>
+              routerLink="/products">المتجر</a>
           </li>
           <li class="nav-item" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
-              routerLink="">الرئيسية</a>
+              routerLink="/home" (click)="color='light'">الرئيسية</a>
           </li>
         </span>
 
         <span class="links col-sm-4 desktop-view">
           <li class="nav-item">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
-              routerLink="contact">تواصل معنا</a>
+             (click)="scroll()">تواصل معنا</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [ngClass]="color=='light'?'text-light':'text-dark'" aria-current="page"
@@ -73,3 +80,70 @@
     </div>
   </div>
 </nav>
+
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+  aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Sign up & login</h5>
+    <button type="button" class="btn-light fs-5 border border-secondary" data-bs-dismiss="offcanvas"
+      aria-label="Close">x</button>
+  </div>
+  <div class="offcanvas-body">
+    <form action="">
+      <p>اسم المستخدم أو البريد الإلكتروني * </p>
+      <input type="text" class="form-control">
+      <p>password * </p>
+      <input type="text" class="form-control p-3">
+      <button class="btn btn-warning bg-cafe text-light mt-3 w-100">Login</button>
+    </form>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions2"
+  aria-labelledby="offcanvasWithBothOptionsLabel2">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel2">Favourits </h5>
+    <button type="button" class="btn-light fs-5 border border-secondary" data-bs-dismiss="offcanvas"
+      aria-label="Close">x</button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- cart products  -->
+    <div class="position-relative text-center m-1" *ngFor="let item of favourits();let i=index">
+      <img src="{{item.productImages['0'].img}}" alt="" class="m-1">
+      <p>{{item.title}}</p>
+      <p>{{item.price}} د.ك</p>
+      <div class="text-center offcanvas-btns">
+        <button class="btn btn-light btn-delete" (click)="setFav(item)"><i class="bi bi-trash3-fill"></i></button>
+      </div>
+    </div>
+    <div class="btn btn-dark text-center mt-1" style="width: 100%;" type="button" data-bs-toggle="offcanvas"
+      *ngIf="favourits().length" routerLink="/payment" data-bs-target="#offcanvasNavbarDark"
+      aria-controls="offcanvasNavbarDark">الذهاب للشراء </div>
+  </div>
+</div>
+
+
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions3"
+  aria-labelledby="offcanvasWithBothOptionsLabel3">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel3">Carts </h5>
+    <button type="button" class="btn-light fs-5 border border-secondary" data-bs-dismiss="offcanvas"
+      aria-label="Close">x</button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- cart products  -->
+    <div class="position-relative text-center m-1" *ngFor="let item of carts();let i=index">
+      <img src="{{item.productImages['0'].img}}" alt="" class="m-1">
+      <p>{{item.title}}</p>
+      <p>{{item.price}} د.ك</p>
+      <div class="text-center offcanvas-btns">
+        <button class="btn btn-light btn-delete" (click)="addToCart(item)"><i class="bi bi-trash3-fill"></i></button>
+      </div>
+    </div>
+    <div class="btn btn-dark text-center mt-1" style="width: 100%;" type="button" data-bs-toggle="offcanvas"
+      *ngIf="carts().length" routerLink="/payment" data-bs-target="#offcanvasNavbarDark"
+      aria-controls="offcanvasNavbarDark">الذهاب للشراء </div>
+  </div>
+</div>

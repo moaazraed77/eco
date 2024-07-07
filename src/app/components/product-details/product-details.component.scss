@@ -1,0 +1,23 @@
+.bg-cafe{
+    background-color: rgb(186, 141, 57) !important;
+}
+.text-cafe{
+    color: rgb(186, 141, 57);
+}
+.product-image{
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+    max-height: 85vh;
+}
+.small-images{
+    padding: 10px 35px ;
+}
+@media screen and (max-width:700px) {
+    .small-images-div{
+        display: none;
+    }
+    img#productImage{
+        height: 320px !important;
+    }
+}

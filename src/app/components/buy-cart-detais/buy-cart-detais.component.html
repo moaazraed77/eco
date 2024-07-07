@@ -1,0 +1,48 @@
+
+<div class="col-12">
+
+    <div class="col-sm-3">
+        <!-- cart products  -->
+    <div class="position-relative products text-center m-1" *ngFor="let item of carts();let i=index">
+        <img src="{{item.productImages['0'].img}}" alt="" class="m-1">
+        <p>{{item.title}}</p>
+        <p>{{item.price}} د.ك</p>
+        <div class="text-center offcanvas-btns">
+          <button class="btn btn-light btn-delete" (click)="deleteProduct(item)"><i class="bi bi-trash3-fill"></i></button>
+        </div>
+        <p class="change-quantity"> <span><i class="bi bi-dash-circle-dotted"
+            (click)="countProducts(-1,i)"></i></span>
+            <span class="m-2">{{counts[i]}}</span>
+            <span><i class="bi bi-plus-circle-dotted" (click)="countProducts(1,i)"></i></span>
+        </p>
+      </div>
+      <div class="btn btn-dark text-center mt-1" style="width: 100%;" type="button" data-bs-toggle="offcanvas"
+        *ngIf="carts().length" routerLink="/payment" data-bs-target="#offcanvasNavbarDark"
+        aria-controls="offcanvasNavbarDark">{{ totalPrice }}  د.أ</div>
+    </div>
+
+    <div class="col-sm-9 p-3">
+        <form [formGroup]="userData" (ngSubmit)="submit()">
+            <div class="form-gruop">
+                <label for="name">name</label>
+                <input type="text" class="form-control" placeholder="name" formControlName="name">
+            </div>
+            <div class="form-gruop">
+                <label for="email">email</label>
+                <input type="email" class="form-control" placeholder="email" formControlName="email">
+            </div>
+            <div class="form-gruop">
+                <label for="phone">phone</label>
+                <input type="text" class="form-control" placeholder="phone" formControlName="phone">
+            </div>
+            <div class="form-gruop">
+                <label for="address">address</label>
+                <input type="text" class="form-control" placeholder="address" formControlName="address">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-secondary m-3" type="submit">شراء الان </button>
+            </div>
+        </form>
+    </div>
+
+</div>

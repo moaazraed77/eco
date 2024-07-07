@@ -9,7 +9,7 @@
     transition: .4s;
 }
 
-$bgcolor:rgb(186, 141, 57);
+$bgcolor: rgb(186, 141, 57);
 
 // :root{
 //     --bgcolor:rgb(186, 141, 57);
@@ -21,12 +21,27 @@ $bgcolor:rgb(186, 141, 57);
 
 img::selection {
     background: none;
+    border-radius: 5px;
 }
 
-h2{
+button {
+    border: none;
+    background: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+label {
+    text-transform: capitalize;
+    margin-top: 10px !important;
+}
+
+h2 {
     color: $bgcolor !important;
 }
-
+.title{
+    padding-top: 35px;
+}
 @media screen and (max-width:700px) {
     [class *="col-"] {
         width: 100%;

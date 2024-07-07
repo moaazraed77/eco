@@ -1,0 +1,45 @@
+<div class="col-12">
+    <div class="col-sm-2 small-images-div p-3"><img [src]="item.img" *ngFor="let item of product.productImages" class="product-image small-images" alt=""></div>
+    <div class="col-sm-5">
+        <swiper-container class="w-100" autoplay  pagination="true" pagination-clickable="true">
+            <swiper-slide *ngFor="let item of product.productImages"><img [src]="item.img" id="productImage" class="product-image" alt=""></swiper-slide>
+        </swiper-container>
+    </div>
+    <div class="col-sm-4 text-end p-3">
+        <p class="fs-2 fw-bold text-cafe title">{{product.title}}</p>
+        <p class="fs-3 fw-medium details">{{product.details}}</p>
+        <p class="fs-2 fw-bold w-100 text-center text-cafe">
+            <span class="text-decoration-line-through">{{product.prePrice}}</span>
+            {{product.price}} د.أ
+        </p>
+        <div class="d-flex w-100 justify-content-center flex-wrap">
+            <button class="btn btn-dark bg-cafe text-light m-1" type="button" (click)="addToCart(product)" routerLink="/payment">Buy now</button>
+            <button class="btn btn-dark bg-cafe text-light m-1" (click)="addToCart(product)">اضف الي السلة</button>
+        </div>
+        <marquee behavior="auto" direction="right" class="d-flex bg-cafe p-2 text-light m-2">
+            <span>
+                <i class="bi bi-truck" style="margin: 5px;"></i>
+                <span style="margin-left: 50px;">تسليم خلال 72 ساعة</span>
+            </span>
+            <span>
+                <i class="bi bi-cash-coin" style="margin: 5px;"></i>
+                <span style="margin-left: 50px;"> ارجاع مجاني</span>
+            </span>
+            <span>
+                <span>100<i class="bi bi-percent" style="margin: 5px;"></i></span>
+                <span style="margin-left: 50px;">عطور اصلية 100%</span>
+            </span>
+            <span>
+                <i class="bi bi-gift-fill" style="margin: 5px;"></i>
+                <span style="margin-left: 50px;">تصفيات مستودعات لفترة محدودة</span>
+            </span>
+            <span>
+                <i class="bi bi-database-fill-add" style="margin: 5px;">الدفع عند الإستلام فى الإمارات - والكويت -
+                    وعمان</i>
+            </span>
+            <span>
+                <i class="bi bi-truck" style="margin: 5px;"></i>
+            </span>
+        </marquee>
+    </div>
+</div>

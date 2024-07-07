@@ -1,0 +1,44 @@
+// ---------------------------- canvas --------------------------------
+.products img {
+    width: 60%;
+    height: 180px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.products p {
+    margin-bottom: 1px;
+    color: black;
+}
+
+.btn-delete {
+    position: absolute;
+    top: -2px;
+    left: 76%;
+    border-radius: 50%;
+    font-weight: 500;
+    height: 30px;
+    width: 30px;
+    color: #ff0606;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.btn-delete i {
+    font-size: 20px;
+}
+
+@media screen and (max-width:600px) {
+    .cart-div {
+        margin-left: 1%;
+        padding: 7px 0px ;
+    }
+
+    .cart-div p {
+        font-size: .87rem;
+        text-align: center;
+        margin: 3px;
+    }
+}

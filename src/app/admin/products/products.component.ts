@@ -6,13 +6,14 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { product } from '../../modules/interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';  // write this special code for upload img 
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,LoadingComponent],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrls: ['./products.component.scss','../../modules/styles/admin.style.css']
 })
 export class ProductsComponent {
   // -------------------------------- variables of the website ----------------------------
@@ -20,6 +21,7 @@ export class ProductsComponent {
   photosPromo: any[] = [];
   photosFiles: File[] = [];
   photosSize: number[] = [];
+  productsall: product[] = [];
   products: product[] = [];
   // brands: string[] = ["Dior", "Gucci", "Prada", "Armani", "Louis Vuitton", "Hermes", "Burberry", "Ralph Lauren", "Balenciaga", "Fendi", "Rolex", "Saint Laurent", 'Versace', "Dolce&Gabbana", "Givenchy", "Valentino", "Balmain", "Bvlgari", "Cartier", "Swarovski", "Bottega Veneta", "Coach", "Michael Kors", "Chanel", "Moncler", "AMIRI", "others"].sort();
   numberOfImages!: number;
@@ -28,6 +30,7 @@ export class ProductsComponent {
   globalKey: string = "";
   productsFilter: any = "";
   uploading:boolean=false;
+  loading: boolean = false;
 
   @Input() typeOfDataFromParent: string = "";
 
@@ -56,12 +59,17 @@ export class ProductsComponent {
   ngOnChanges() {
     this.products = [];
     this.photosPromo = [];
+    this.loading=true;
     this.dataServ.getDataAPI(this.productsFilter).subscribe((data) => {
       for (const key in data) {
         this.products.push(data[key])
+        this.productsall.push(data[key])
       }
-      this.products = this.products.filter(item => item.department == this.productsFilter)
+      this.loading=false
     })
+  }
+  filter(){
+    this.products = this.productsall.filter(item => item.department == this.productsFilter)
   }
   //empty product for adding 
   emptyProuct() {

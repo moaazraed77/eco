@@ -29,9 +29,13 @@ marquee {
 }
 
 .image-view {
+    height: 350px;
     min-height: 200px;
     width: 100%;
+    max-height: 360px;
     z-index: 2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .back-image-view {

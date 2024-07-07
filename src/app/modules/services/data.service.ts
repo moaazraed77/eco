@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { carasouel } from '../interfaces/carasouel.interface';
@@ -6,13 +6,18 @@ import { product } from '../interfaces/product.interface';
 import { social } from '../interfaces/social.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Database } from '@angular/fire/database';
+import emailjs from '@emailjs/browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  favourits = signal<product[]>([])
+  carts = signal<product[]>([])
+
   constructor(private http: HttpClient, private toastr: ToastrService, private database: Database) { }
-  apiLink:string=this.database.app.options.databaseURL?.toString()!;
+  apiLink: string = this.database.app.options.databaseURL?.toString()!;
   // get data from API
   getDataAPI(type: string): Observable<product[]> {
     return this.http.get<product[]>(`${this.apiLink}/products.json`)
@@ -40,6 +45,12 @@ export class DataService {
     } else {
       location.reload();
     }
+  }
+
+  buyProduct(data: any) {
+    this.http.post(`${this.apiLink}/buy.json`, data).subscribe((data) => {
+      this.toastr.success("تم الطلب ", "عملية ناجحة");
+    })
   }
   //  --------------- create and update photos-carasouel ---------------
   // createCarasouel(key: string, action: string, type: string, data: any) {
@@ -71,47 +82,96 @@ export class DataService {
     })
   }
 
-  //---------------------------------------------------------------------------------------------------------------------
-  // -------------------------- note that update & delete is working in the Component.ts directly -----------------------
-  getSocialAPI(socialtype: string): Observable<social[]> {
-    return this.http.get<social[]>(`${this.apiLink}/${socialtype}.json`)
+  // -------------------------- favourites ------------------------
+  setFavourite(item: product) {
+    let favs: product[] = [];
+    favs = JSON.parse(localStorage.getItem("Favourites")!)
+    favs.push(item)
+    localStorage.setItem("Favourites", JSON.stringify(favs))
   }
-  // --------------------- get data of social Links ---------------------
-  returnSoical(social: string): social[] {
-    let arr: social[] = [];
-    this.getSocialAPI(social).subscribe(data => {
+
+
+  // -------------------------- data buy carts ------------------------ 
+  async buyCarts(userData: any, carts: any , counts:number[] ,totalPrice : number) {
+    let zoblot: any = { "userData": userData, "carts": carts }, isRequsetedBefore = false;;
+    this.toastr.info("جاري ارسال الطلب","يرجي الانتظار")
+
+    this.getBuyRequests().subscribe(data => {
+
       for (const key in data) {
-        arr.push(data[key]);
+        if (data[key].userData.id == userData.id) {
+          isRequsetedBefore = true;
+          break;
+        }
+      }
+
+      if (!isRequsetedBefore)
+        this.http.post(`${this.apiLink}/buy.json`, zoblot).subscribe((data) => {
+          this.toastr.success("تم الطلب ", "عملية ناجحة");
+          let msg = "";
+
+for (let i = 0 ; i < carts.length ; i++) {
+msg += `
+Title : ${carts[i].title} \n
+Details : ${carts[i].details} \n
+Price : ${carts[i].price} \n
+Quantity : ${counts[i]} \n
+Product Image : ${carts[i].productImages[0].img} \n
+-------------------------------------- \n 
+`
+}
+// sending email 
+emailjs.init("3C9NauxvHZWATM3At")
+emailjs.send("service_m5i1rqe","template_2ge3ct9",{
+from_name: userData.name,
+from_email: userData.email,
+to_name: "Alshaya Group",
+to_email : "mohsenjjyu@gmail.com",
+message: `
+this customer need these products ,\n
+${msg} \n
+Toatal Price : ${totalPrice} \n
+`,
+reply_to: "Alshaya Group",
+request_id: userData.id,
+phone: userData.phone,
+});
+// ------------------------------------------------------
+emailjs.send("service_m5i1rqe","template_2ge3ct9",{
+  from_name : "Alshaya Group",
+  from_email  : "mohsenjjyu@gmail.com",
+  to_name: userData.name,
+  to_email: userData.email,
+  message: `
+  this customer need these products ,\n
+  ${msg} \n
+  Toatal Price : ${totalPrice} \n
+  `,
+  reply_to: "Alshaya Group",
+  request_id: userData.id,
+  phone: userData.phone,
+  });
+})
+      else {
+        this.toastr.error("تم هذا طلب المنتج من قبل")
+        this.toastr.error("اعد تحميل الصفحة مرة اخري")
       }
     })
-    return arr;
   }
-  // --------------------------------------- update social media links ---------------------------------------
-  updateWhatsapp(whats: any) {
-    this.getSocialAPI("whatsapp").subscribe(data => {
-      for (let key in data) {
-        this.http.put(`${this.apiLink}/whatsapp/${key}.json`, whats).subscribe((data) => {
-          this.toastr.success("تم تعديل الواتساب", "عملية ناجحة");
-        })
-      }
-    })
+
+  getBuyRequests(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiLink}/buy.json`)
   }
-  updateSnapChat(snapchat: any) {
-    this.getSocialAPI("snapchat").subscribe(data => {
-      for (let key in data) {
-        this.http.put(`${this.apiLink}/snapchat/${key}.json`, snapchat).subscribe((data) => {
-          this.toastr.warning("تم تعديل سناب شات", "عملية ناجحة");
-        })
+
+  deleteBuyRequest(id: number) {
+    this.getBuyRequests().subscribe(data => {
+      for (const key in data) {
+        if (data[key].id == id) {
+          this.http.delete(`${this.apiLink}/buy/${key}.json`).subscribe()
+          break;
+        }
       }
-    })
-  }
-  updateInstagram(insta: any) {
-    this.getSocialAPI("insta").subscribe(data => {
-      for (let key in data) {
-        this.http.put(`${this.apiLink}/insta/${key}.json`, insta).subscribe((data) => {
-          this.toastr.error("تم تعديل الانستجرام", "عملية ناجحة");
-        })
-      }
+      location.reload()
     })
   }
 }

@@ -1,5 +1,5 @@
 
 
 :root{
-    --bgcolor:rgb(186, 141, 57);
+    --bgcolor:rgb(186, 141, 57) !important;
 }

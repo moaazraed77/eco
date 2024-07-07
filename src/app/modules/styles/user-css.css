@@ -357,6 +357,7 @@ p {
 
     .product img {
         height: 210px !important;
+        width: 100%;
     }
 
     .global-padding {

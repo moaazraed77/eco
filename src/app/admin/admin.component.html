@@ -15,12 +15,14 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-           
             <li class="nav-item" id="basic" (click)="setAcitve('home')">
               <a class="nav-link" type="button" data-bs-dismiss="offcanvas" aria-label="Close" (click)="typeOfDataFromParent='basic-page';">الصفحة الرئيسية </a>
             </li>
             <li class="nav-item" id="men" (click)="setAcitve('products')">
               <a class="nav-link" type="button" data-bs-dismiss="offcanvas" aria-label="Close" (click)="typeOfDataFromParent='men';">منتجات</a>
+            </li>
+            <li class="nav-item" id="men" (click)="setAcitve('productsBuy')">
+              <a class="nav-link" type="button" data-bs-dismiss="offcanvas" aria-label="Close" (click)="typeOfDataFromParent='productsBuy';">سلة المشتريات</a>
             </li>
             <div class="text-center">
               <button class="btn btn-danger" (click)="logout()"> تسجيل خروج <i class="bi bi-box-arrow-left"></i></button>
