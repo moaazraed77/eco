@@ -110,16 +110,16 @@
   <div class="offcanvas-body">
     <!-- cart products  -->
     <div class="position-relative text-center m-1" *ngFor="let item of favourits();let i=index">
-      <img src="{{item.productImages['0'].img}}" alt="" class="m-1">
-      <p>{{item.title}}</p>
-      <p>{{item.price}} د.ك</p>
+      <img src="{{item.productImages['0'].img}}" alt="" class="m-1" routerLink="/product-details/{{item.id}}">
+      <p routerLink="/product-details/{{item.id}}">{{item.title}}</p>
+      <p routerLink="/product-details/{{item.id}}">{{item.price}} د.ك</p>
       <div class="text-center offcanvas-btns">
         <button class="btn btn-light btn-delete" (click)="setFav(item)"><i class="bi bi-trash3-fill"></i></button>
       </div>
     </div>
-    <div class="btn btn-dark text-center mt-1" style="width: 100%;" type="button" data-bs-toggle="offcanvas"
+    <!-- <div class="btn btn-dark text-center mt-1" style="width: 100%;" type="button" data-bs-toggle="offcanvas"
       *ngIf="favourits().length" routerLink="/payment" data-bs-target="#offcanvasNavbarDark"
-      aria-controls="offcanvasNavbarDark">الذهاب للشراء </div>
+      aria-controls="offcanvasNavbarDark">الذهاب للشراء </div> -->
   </div>
 </div>
 

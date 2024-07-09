@@ -6,7 +6,7 @@
                 <div class="w-100">
                     <h1 class="fixed-link" >{{listArray[0].text}}</h1>
                     <h4 *ngFor="let item of listArray; let i=index" [ngClass]="{'d-none':i==0}">{{item.text}}</h4>
-                    <button class="btn btn-primary fs-5" owlRouterLink="products">تسوق الان</button>
+                    <button class="btn btn-primary fs-5" owlRouterLink="/products">تسوق الان</button>
                 </div>
             </div>
         </div>
